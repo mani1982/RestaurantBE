@@ -350,4 +350,4 @@ MigrationBackup/
 .ionide/
 
 #Ignore Migration folder
-Migrations/
+# Migrations/

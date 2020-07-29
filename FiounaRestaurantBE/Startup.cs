@@ -172,6 +172,35 @@ namespace FiounaRestaurantBE
             {
                 endpoints.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");
             });
+
+            PrepDB.PrepPopulation(app);
+        }
+    }
+
+
+
+    public static class PrepDB
+    {
+        public static void PrepPopulation(IApplicationBuilder app)
+        {
+            using (var serviceScope = app.ApplicationServices.CreateScope())
+            {
+                Migrate(serviceScope.ServiceProvider.GetService<FiounaRestaurantDbContext>());
+            }
+        }
+
+        public static void Migrate(FiounaRestaurantDbContext dbContext)
+        {
+            try
+            {
+                dbContext.Database.Migrate();
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine($" sql error: {e.Message}");
+                Console.WriteLine($" sql inner exception: {e.InnerException}");
+
+            }
         }
     }
 }

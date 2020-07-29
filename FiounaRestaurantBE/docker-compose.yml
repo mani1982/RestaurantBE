@@ -1,0 +1,17 @@
+version: '3.4'
+
+services:
+  fiounarestaurantbe:
+    #image: ${DOCKER_REGISTRY-}fiounarestaurantbe
+    build:
+      context: .
+      dockerfile: Dockerfile
+
+  sql-server:
+    image: mcr.microsoft.com/mssql/server:2017-latest-ubuntu
+    environment:
+      ACCEPT_EULA: "Y" 
+      SA_PASSWORD: "yourStrong(!)Password" 
+      MSSQL_PID: Express
+    ports:
+      - "1433:1433"
